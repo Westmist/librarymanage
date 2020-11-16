@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcc.library.dao.StudentDao">
+    <!-- 查询整个数据表 -->
+    <resultMap id="studentAll" type="com.lcc.library.entity.Student">
+        <id column="uid" property="uid"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="cid" property="cid"/>
+    </resultMap>
+    <select id="queryAll" resultMap="studentAll">
+        SELECT * FROM student LIMIT #{hIndex},#{limit}
+    </select>
+
+    <!-- 查询数据表行数 -->
+    <select id="queryRowCount" resultType="integer">
+        SELECT COUNT(*) FROM student;
+    </select>
+
+    <!-- 添加用户 -->
+    <insert id="addStudent" parameterType="com.lcc.library.entity.Student">
+        INSERT INTO student(name,password,cid) VALUES (#{name},#{password},#{cid})
+    </insert>
+
+    <!-- 修改用户 -->
+    <update id="updateStudent" parameterType="com.lcc.library.entity.Student">
+        UPDATE student SET name = #{name}, password = #{password}, cid = #{cid} WHERE uid = #{uid}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="deleteStudent" parameterType="java.util.List">
+        DELETE FROM student WHERE uid in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.uid}
+        </foreach>
+    </delete>
+</mapper>

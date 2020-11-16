@@ -1,0 +1,4 @@
+jdbc.properties
+/target/
+/.idea/
+librarymanage.iml

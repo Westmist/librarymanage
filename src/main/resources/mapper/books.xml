@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcc.library.dao.BooksDao">
+    <!-- 根据卡号查询书单 -->
+    <resultMap id="booksheet" type="com.lcc.library.entity.Books">
+        <id column="cnum" property="cnum"/>
+        <result column="isbn" property="isbn"/>
+        <result column="bname" property="bname"/>
+        <result column="beginTime" property="beginTime"/>
+        <result column="endTime" property="endTime"/>
+    </resultMap>
+    <select id="queryByCard" parameterType="integer" resultMap="booksheet">
+         SELECT * FROM books WHERE cnum = #{cnum}
+    </select>
+</mapper>
